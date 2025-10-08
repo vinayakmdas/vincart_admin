@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "151825134909",
+    "project_id": "ecommerce-fasion",
+    "storage_bucket": "ecommerce-fasion.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:151825134909:android:f5f719faa6371eccd64154",
+        "android_client_info": {
+          "package_name": "com.example.ecommerce_admin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7M6rJqvI_i7fUxAPEQVSiaZpDCTPnOPA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
