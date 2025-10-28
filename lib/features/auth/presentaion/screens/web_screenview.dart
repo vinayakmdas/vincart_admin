@@ -22,7 +22,7 @@ class WebScreenview extends StatelessWidget {
           Expanded(
             child: Container(
               color: AppColor.bagroundColor,
-              child: Center(child: Image.asset("assert/appname.png")),
+              child: Center(child:Text("Admin Panel",style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),)),
             ),
           ),
           Expanded(

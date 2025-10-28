@@ -64,9 +64,7 @@ class SellerManagement extends StatelessWidget {
               color: Colors.white,
               child: Column(
                 children: [
-                  SellerContainer.sellerPendingHeader(),
-
-                  // 👇 Flexible stream list
+                  SellerContainer.sellerheading(),
                   Expanded(
                     child: StreamBuilder<QuerySnapshot>(
                       stream: FirebaseFirestore.instance

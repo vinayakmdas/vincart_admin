@@ -43,7 +43,7 @@ class SellerContainer {
   }
 
   // Header row for pending sellers
-  static Widget sellerPendingHeader() {
+  static Widget sellerheading() {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
       color: AppColor.containercolor,
@@ -85,6 +85,7 @@ class SellerContainer {
         context: context,
         builder: (context) {
           return AlertDialog(
+            backgroundColor: AppColor.containercolor,
             title: const Text("Change Seller Status"),
             content: Text("Do you want to approve or reject ${data["sellerName"]}?"),
             actions: [

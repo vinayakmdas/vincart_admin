@@ -10,6 +10,10 @@ import 'package:ecommerce_admin/features/user_management/screens/userManagement.
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+// import 'package:flutter/foundation.dart' show kIsWeb;
+// import 'dart:developer' as developer;
+
+
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -59,23 +63,69 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text(
-          menuItems[sideMenu.selectedIndex].pageTitle,
-          style: GoogleFonts.cormorantGaramond(
-            color: Colors.grey.shade300, 
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        backgroundColor: AppColor.bagroundColor,
-        actions: [
-          IconButton(
+  title: Text(
+    menuItems[sideMenu.selectedIndex].pageTitle,
+    style: GoogleFonts.cormorantGaramond(
+      color: Colors.grey.shade300,
+      fontWeight: FontWeight.w600,
+    ),
+  ),
+  foregroundColor: Colors.white,
+  backgroundColor: AppColor.bagroundColor,
+  actions: [
+    Padding(
+      padding: const EdgeInsets.only(right: 16),
+      child: Row(
+        children: [
+          // ✅ "Admin" Button
+          ElevatedButton(
             onPressed: () {
-              _scaffoldKey.currentState?.openDrawer();
+              // Optional: do something when pressing "Admin"
             },
-            icon: const Icon(Icons.menu_rounded, color: Color.fromARGB(255, 255, 255, 255)),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColor.primaryColor,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            child: const Text(
+              "Admin",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500,color: Colors.white),
+            ),
+          ),
+
+          const SizedBox(width: 4),
+
+          // ✅ Dropdown (Logout Option)
+          PopupMenuButton<String>(
+            color: AppColor.primaryColor,
+            icon: const Icon(Icons.arrow_drop_down, color: Colors.white, size: 28),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            onSelected: (value) {
+              if (value == 'logout') {
+             
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Logged out')),
+                );
+            
+              }
+            },
+            itemBuilder: (context) => [
+              const PopupMenuItem(
+                value: 'logout',
+                child: Text('Logout',style: TextStyle(color: Colors.red),),
+              ),
+            ],
           ),
         ],
       ),
+    ),
+  ],
+),
+
       drawer: Drawer(
         shadowColor: Colors.white,
         backgroundColor: AppColor.bagroundColor,
@@ -85,6 +135,7 @@ class HomeScreen extends StatelessWidget {
           itemBuilder: (context, index) {
             final item = menuItems[index];
             return ListTile(
+              
               leading: Icon(item.icon, color: Colors.white),
               title: Text(
                 item.title,
