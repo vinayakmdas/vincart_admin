@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 class SellerManagement extends StatelessWidget {
   const SellerManagement({super.key});
 
-  final String selectedFilter = "pending"; 
+  // final String selectedFilter = "pending"; 
  // Default filter
   Widget buildCountContainer({
     required String title,
@@ -33,9 +33,9 @@ class SellerManagement extends StatelessWidget {
               Text(
                 title,
                 style: TextStyle(
-                  color: selectedFilter == filterKey
+                  color: provider.selectedFilter == filterKey
                       ? color
-                      : Colors.white,
+                      : AppColor.whiteColor, 
                 ),
               ),
               icon,
@@ -62,28 +62,28 @@ class SellerManagement extends StatelessWidget {
                 context: context,
                 title: "Total Sellers",
                 icon: Icons.people_outline,
-                color: Colors.orange,
+                color: AppColor.orangeColor,
                 filterKey: "total",
               ),
               buildCountContainer(
                 context: context,
                 title: "Active Sellers",
                 icon: Icons.check_circle_outline,
-                color: Colors.green,
+                color: AppColor.greenColor,
                 filterKey: "active",
               ),
               buildCountContainer(
                 context: context,
                 title: "Blocked Sellers",
                 icon: Icons.block,
-                color: Colors.red,
+                color: AppColor.redColor,
                 filterKey: "blocked",
               ),
               buildCountContainer(
                 context: context,
                 title: "Pending Sellers",
                 icon: Icons.hourglass_empty,
-                color: Colors.blue,
+                color: AppColor.skyblue,
                 filterKey: "pending",
               ),
             ],
@@ -118,7 +118,7 @@ class SellerManagement extends StatelessWidget {
                             snapshot.data!.docs.isEmpty) {
                           return Center(
                             child: Text(
-                              "NO ${selectedFilter.toUpperCase()} FOUND",
+                              "NO SELLERS FOUND",
                               style: const TextStyle(color: Colors.black54),
                             ),
                           );

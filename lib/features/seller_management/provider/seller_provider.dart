@@ -1,8 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce_admin/core/themes/app_color.dart';
 import 'package:flutter/material.dart';
 
 class SellerProvider extends ChangeNotifier {
-  String selectedFilter = "pending"; // Default filter
+  String selectedFilter = "pending"; 
+   Color selectcolor = AppColor.whiteColor  ;
+
+    Color get selectedColor => selectcolor;
+
+
+    changingecolor(Color color){
+      selectcolor=color;
+      notifyListeners();
+    }
 
   // Change filter and notify UI
   void setFilter(String filter) {

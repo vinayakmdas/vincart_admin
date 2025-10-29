@@ -33,7 +33,7 @@ class SellerContainer {
           Text(
             "$data",
             style: const TextStyle(
-              color: Colors.white,
+              color: AppColor.whiteColor,
               fontSize: 22,
               fontWeight: FontWeight.bold,
             ),
@@ -48,24 +48,24 @@ class SellerContainer {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
       color: AppColor.containercolor,
-      child: const Row(
+      child:  Row(
         children: [
           Expanded(
               child: Text("Name",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.white))),
+                      fontWeight: FontWeight.bold, color: AppColor.whiteColor))),
           Expanded(
               child: Text("Phone No",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.white))),
+                      fontWeight: FontWeight.bold, color: AppColor.whiteColor))),
           Expanded(
               child: Text("Email",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.white))),
+                      fontWeight: FontWeight.bold, color: AppColor.whiteColor))),
           Expanded(
               child: Text("Status",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.white))),
+                      fontWeight: FontWeight.bold, color: AppColor.whiteColor))),
         ],
       ),
     );
@@ -76,6 +76,8 @@ static Widget sellerRow(
   BuildContext context,
   String docId,
 ) {
+
+
   return Container(
     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
     decoration: BoxDecoration(
@@ -93,7 +95,11 @@ static Widget sellerRow(
         Expanded(
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: AppColor.containercolor,
+                backgroundColor: (data["status"] == "approved")
+      ?AppColor.greenColor
+      : (data["status"] == "blocked")
+          ? AppColor.redColor
+          : AppColor.containercolor, 
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
@@ -144,9 +150,9 @@ static Widget sellerRow(
                             );
                           }
                         },
-                        child: const Text(
+                        child:  Text(
                           "Block",
-                          style: TextStyle(color: Colors.redAccent),
+                          style: TextStyle(color: AppColor.redColor),
                         ),
                       ),
                     ],
@@ -156,7 +162,7 @@ static Widget sellerRow(
             },
             child: Text(
               (data["status"] ?? "").toUpperCase(),
-              style: const TextStyle(color: Colors.white),
+              style:  TextStyle(color: AppColor.whiteColor),
             ),
           ),
         ),
@@ -182,5 +188,20 @@ static Future<void> updateSellerStatus(
     );
   }
 }
+
+static Color getstatusColor(String status){
+
+  switch(status){
+    case "approved":
+      return AppColor.greenColor;
+    case "blocked":
+      return Colors.red;
+    case "pending":
+      return AppColor.containercolor;
+    default:
+      return AppColor.orangeColor;
+  }
+}
+
 
 }
