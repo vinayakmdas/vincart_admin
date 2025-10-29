@@ -1,73 +1,30 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_admin/core/themes/app_color.dart';
+import 'package:ecommerce_admin/features/seller_management/provider/seller_provider.dart';
 import 'package:ecommerce_admin/features/seller_management/widget/seller_custome.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class SellerManagement extends StatefulWidget {
+class SellerManagement extends StatelessWidget {
   const SellerManagement({super.key});
 
-  @override
-  State<SellerManagement> createState() => _SellerManagementState();
-}
-
-class _SellerManagementState extends State<SellerManagement> {
-  String selectedFilter = "pending"; // Default filter
-
-  // 🔹 Helper to get Firestore Stream based on selected filter
-  Stream<QuerySnapshot> getSellerStream() {
-    final sellers = FirebaseFirestore.instance.collection("sellers");
-
-    switch (selectedFilter) {
-      case "total":
-        return sellers.snapshots();
-      case "active":
-        return sellers.where("status", isEqualTo: "approved").snapshots();
-      case "blocked":
-        return sellers.where("status", isEqualTo: "blocked").snapshots();
-      case "pending":
-      default:
-        return sellers.where("status", isEqualTo: "pending").snapshots();
-    }
-  }
-
-  // 🔹 Helper to count sellers dynamically
-  Stream<int> getCountStream(String filter) {
-    final sellers = FirebaseFirestore.instance.collection("sellers");
-    switch (filter) {
-      case "total":
-        return sellers.snapshots().map((snapshot) => snapshot.docs.length);
-      case "active":
-        return sellers
-            .where("status", isEqualTo: "approved")
-            .snapshots()
-            .map((snapshot) => snapshot.docs.length);
-      case "blocked":
-        return sellers
-            .where("status", isEqualTo: "blocked")
-            .snapshots()
-            .map((snapshot) => snapshot.docs.length);
-      case "pending":
-        return sellers
-            .where("status", isEqualTo: "pending")
-            .snapshots()
-            .map((snapshot) => snapshot.docs.length);
-      default:
-        return const Stream<int>.empty();
-    }
-  }
-
-  // 🔹 Widget for each top container
+  final String selectedFilter = "pending"; 
+ // Default filter
   Widget buildCountContainer({
     required String title,
     required IconData icon,
     required Color color,
     required String filterKey,
+     required BuildContext context,
   }) {
+
+    final provider = Provider.of<SellerProvider>(context);
     return Expanded(
+       
       child: InkWell(
-        onTap: () => setState(() => selectedFilter = filterKey),
+        onTap: () => provider.setFilter(filterKey),
         child: StreamBuilder<int>(
-          stream: getCountStream(filterKey),
+             stream: provider.getCountStream(filterKey),
           builder: (context, snapshot) {
             int count = snapshot.data ?? 0;
             return SellerContainer.sellercountContainers(
@@ -102,24 +59,28 @@ class _SellerManagementState extends State<SellerManagement> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               buildCountContainer(
+                context: context,
                 title: "Total Sellers",
                 icon: Icons.people_outline,
                 color: Colors.orange,
                 filterKey: "total",
               ),
               buildCountContainer(
+                context: context,
                 title: "Active Sellers",
                 icon: Icons.check_circle_outline,
                 color: Colors.green,
                 filterKey: "active",
               ),
               buildCountContainer(
+                context: context,
                 title: "Blocked Sellers",
                 icon: Icons.block,
                 color: Colors.red,
                 filterKey: "blocked",
               ),
               buildCountContainer(
+                context: context,
                 title: "Pending Sellers",
                 icon: Icons.hourglass_empty,
                 color: Colors.blue,
@@ -132,6 +93,7 @@ class _SellerManagementState extends State<SellerManagement> {
 
           /// 🔹 Sellers List
           Expanded(
+           
             child: Container(
               color: Colors.white,
               child: Column(
@@ -139,8 +101,8 @@ class _SellerManagementState extends State<SellerManagement> {
                   SellerContainer.sellerheading(),
                   Expanded(
                     child: StreamBuilder<QuerySnapshot>(
-                      stream: getSellerStream(),
-                      builder: (context, snapshot) {
+                        stream: Provider.of<SellerProvider>(context).getSellerStream(),
+                        builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
                           return const Center(

@@ -2,6 +2,7 @@
 
 import 'dart:developer';
 import 'package:ecommerce_admin/features/homescreen/screens/provider/sideMen_provider.dart';
+import 'package:ecommerce_admin/features/seller_management/provider/seller_provider.dart';
 // import 'package:ecommerce_admin/features/seller_management/provider/seller_provider.dart';
 import 'package:ecommerce_admin/features/splash/splashscreen.dart';
 import 'package:ecommerce_admin/firebase_options.dart';
@@ -24,7 +25,7 @@ try {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => DrawerProvider()),
-        // ChangeNotifierProvider(create: (_)=>SellerProvider())
+        ChangeNotifierProvider(create: (_)=>SellerProvider())
       ],
       child: const MyApp(),
     ),
