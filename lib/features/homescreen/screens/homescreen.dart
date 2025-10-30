@@ -3,7 +3,7 @@ import 'package:ecommerce_admin/features/categories/screens/category_screen.dart
 import 'package:ecommerce_admin/features/customer_service/screen/customer_screen.dart';
 import 'package:ecommerce_admin/features/dashboard/screens/dashbord_screen.dart';
 import 'package:ecommerce_admin/features/homescreen/model/drawer_Model.dart';
-import 'package:ecommerce_admin/features/homescreen/screens/provider/sideMen_provider.dart';
+import 'package:ecommerce_admin/features/homescreen/provider/sideMen_provider.dart';
 import 'package:ecommerce_admin/features/order/screens/Oreder_screens.dart';
 import 'package:ecommerce_admin/features/seller_management/screens/seller_management.dart';
 import 'package:ecommerce_admin/features/user_management/screens/userManagement.dart';
