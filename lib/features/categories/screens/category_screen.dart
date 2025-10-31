@@ -14,7 +14,7 @@ class CategoryScreen extends StatelessWidget {
         children: [
           const SizedBox(height: 20),
           CategoryCustom.categoryAdding(context),
-          Expanded( 
+          Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Padding(
@@ -32,7 +32,45 @@ class CategoryScreen extends StatelessWidget {
                       const SizedBox(height: 10),
                       Divider(thickness: 2, color: AppColor.whiteColor),
                       CategoryCustom.categoryTableHeader(),
-                      
+
+                      Expanded(
+                        child: StreamBuilder<List<Map<String, dynamic>>>(
+                          stream: CategoryCustom.categoryDataGet(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+
+                            if (snapshot.hasError) {
+                              return Center(
+                                child: Text('Error: ${snapshot.error}'),
+                              );
+                            }
+
+                            if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                              return const Center(child: Text('No Data Found'));
+                            }
+
+                            final categories = snapshot.data!;
+                            int slno = 0;
+
+                            return ListView.builder(
+                              itemCount: categories.length,
+                              itemBuilder: (context, index) {
+                                final category = categories[index];
+                                slno = index + 1;
+                                return CategoryCustom.categoryDataRow(
+                                  category,
+                                  slno,
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 ),

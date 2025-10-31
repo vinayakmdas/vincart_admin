@@ -221,6 +221,13 @@ class CategoryCustom {
         children: [
           SizedBox(width: 20),
           SizedBox(height: 50,),
+
+          Expanded(
+            child: Text(
+              "S.No",
+              style: TextStyle(color: AppColor.whiteColor),
+            ),
+          ),
           Expanded(
             child: Text(
               "Category Name",
@@ -250,9 +257,47 @@ class CategoryCustom {
     );
   }
  
-  // static  Future   getingCategoryData() async  {
-  //   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  //   QuerySnapshot snapshot = await firestore.collection('category').get();
-  //   return snapshot.docs;
-  // }
+ static Stream <List<Map<String, dynamic>>> categoryDataGet()  {
+  return  FirebaseFirestore.instance.collection('category').snapshots().map((snapshot){
+    return snapshot.docs.map((doc){
+     return {
+              'id': doc.id,
+              ...doc.data(),
+            };
+    }).toList();
+  });
+ }
+
+
+
+ static  categoryDataRow(Map<String, dynamic> category,int index ) {
+    return Container(
+      color: AppColor.contentbg,
+      child: Row(
+        
+        children: [
+          SizedBox(width: 20),
+          SizedBox(height: 50,),
+           Expanded(
+            child: Text( '$index'),
+          ),
+          Expanded(
+            child: Text(category['category'] ?? '',style: TextStyle(color: AppColor.whiteColor),),
+          ),
+          Expanded(
+            child: Text(category['description'] ?? '',style: TextStyle(color: AppColor.whiteColor),),
+          ),
+          Expanded(
+            child: Text(category['status'] ?? '',style: TextStyle(color: AppColor.whiteColor),),
+          ),
+          Expanded(
+            child: Text(category['createdAt'] ?? '',style: TextStyle(color: AppColor.whiteColor),),
+          ),
+          Expanded(
+            child:  IconButton(onPressed: (){}, icon: Icon(Icons.menu,color: AppColor.whiteColor,))
+          ),
+        ],
+      ),
+    );
+  }
 }

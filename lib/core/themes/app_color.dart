@@ -5,6 +5,7 @@ class AppColor {
  static final containercolor = Color(0xFF0B1739);
   static final bagroundColor = const Color(0xFF081028);
   static final primaryColor = const Color(0xFF0B1739);
+  static  final  contentbg =  const Color(0xFF212830);
   static const orangeColor = Colors.orange;
   static const greenColor = Colors.green;
   static const redColor = Colors.red;
