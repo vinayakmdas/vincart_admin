@@ -234,6 +234,7 @@ class CategoryCustom {
               style: TextStyle(color: AppColor.whiteColor),
             ),
           ),
+       
           Expanded(
             child: Text(
               "Description",
@@ -247,10 +248,16 @@ class CategoryCustom {
             child: Text(
               "Created At",
               style: TextStyle(color: AppColor.whiteColor),
-            ),
+            ), 
           ),
+             
           Expanded(
-            child: Text("Action", style: TextStyle(color: AppColor.whiteColor)),
+            child: Row(
+              children: [
+                 SizedBox(width: 80,),
+                Text("Action", style: TextStyle(color: AppColor.whiteColor)),
+              ],
+            ),
           ),
         ],
       ),
@@ -279,7 +286,7 @@ class CategoryCustom {
           SizedBox(width: 20),
           SizedBox(height: 50,),
            Expanded(
-            child: Text( '$index'),
+            child: Text( '$index',style: TextStyle(color: AppColor.whiteColor),),
           ),
           Expanded(
             child: Text(category['category'] ?? '',style: TextStyle(color: AppColor.whiteColor),),

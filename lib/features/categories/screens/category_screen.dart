@@ -55,17 +55,19 @@ class CategoryScreen extends StatelessWidget {
                             }
 
                             final categories = snapshot.data!;
-                            int slno = 0;
+                          
 
                             return ListView.builder(
                               itemCount: categories.length,
                               itemBuilder: (context, index) {
                                 final category = categories[index];
-                                slno = index + 1;
-                                return CategoryCustom.categoryDataRow(
-                                  category,
-                                  slno,
-                                );
+                            int    slno = index + 1;
+                    
+                                return  Padding(
+  padding: const EdgeInsets.only(bottom: 8.0), 
+  child: CategoryCustom.categoryDataRow(category, slno),
+);
+
                               },
                             );
                           },
