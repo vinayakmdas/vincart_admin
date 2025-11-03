@@ -1,4 +1,5 @@
 import 'package:ecommerce_admin/core/themes/app_color.dart';
+import 'package:ecommerce_admin/features/brand/screen/brand_screen.dart';
 import 'package:ecommerce_admin/features/categories/screens/category_screen.dart';
 import 'package:ecommerce_admin/features/customer_service/screen/customer_screen.dart';
 import 'package:ecommerce_admin/features/dashboard/screens/dashbord_screen.dart';
@@ -32,6 +33,10 @@ class HomeScreen extends StatelessWidget {
         return OrederScreens();
       case 5:
         return CategoryScreen();
+          
+          case 6 :
+          return  BrandScreen();
+
       default:
         return Center(
           child: Text(
@@ -56,6 +61,7 @@ class HomeScreen extends StatelessWidget {
       SideMenuItems(title: "Customer Service", icon: Icons.headset_mic_outlined, pageTitle: "Customer Service"),
       SideMenuItems(title: "Order", icon: Icons.shopping_cart, pageTitle: "Order Details"),
       SideMenuItems(title: "Categories", icon: Icons.category_outlined, pageTitle: "Categories"),
+       SideMenuItems(title: "Brand", icon: Icons.bakery_dining_rounded, pageTitle: "Brand Details"),
     ];
 
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();

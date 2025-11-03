@@ -1,7 +1,7 @@
 
 
 import 'dart:developer';
-import 'package:ecommerce_admin/features/homescreen/screens/homescreen.dart';
+import 'package:ecommerce_admin/features/brand/provider/logo_converting.dart';
 import 'package:ecommerce_admin/features/homescreen/provider/sideMen_provider.dart';
 import 'package:ecommerce_admin/features/seller_management/provider/seller_provider.dart';
 // import 'package:ecommerce_admin/features/seller_management/provider/seller_provider.dart';
@@ -26,7 +26,8 @@ try {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => DrawerProvider()),
-        ChangeNotifierProvider(create: (_)=>SellerProvider())
+        ChangeNotifierProvider(create: (_)=>SellerProvider()),
+       ChangeNotifierProvider(create: (_) => LogoProvider())
       ],
       child: const MyApp(),
     ),
