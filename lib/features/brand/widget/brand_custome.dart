@@ -13,7 +13,6 @@ class BrandCustome {
   static Widget brandadding(BuildContext context) {
     final TextEditingController brandcontrolling = TextEditingController();
 
-    final provider = Provider.of <CircularProvider>(context, listen:  false);
 
     return Padding(
       padding: const EdgeInsets.only(right: 40, top: 20),

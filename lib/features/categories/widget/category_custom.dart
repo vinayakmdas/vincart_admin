@@ -5,12 +5,20 @@ import 'package:ecommerce_admin/core/themes/app_color.dart';
 import 'package:flutter/material.dart';
 
 class CategoryCustom {
-  // Add Category Button
+
+  
+  // ^ Add Category Button
   static Widget categoryAdding(BuildContext context) {
     // ✅ Keep controllers OUTSIDE of the dialog button
     TextEditingController categoryController = TextEditingController();
     TextEditingController descriptionController = TextEditingController();
+             String? selectedVariation;
 
+             List<String>variationItems=[ 'No Color & No Size',
+    'Text Size + Color',
+    'Number Size + Color',
+    'Color Only',
+    'Custom'];
     return Padding(
       padding: const EdgeInsets.only(right: 40, top: 20),
       child: Row(
@@ -36,7 +44,7 @@ class CategoryCustom {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          // 🔹 Category Name Field
+                          // ^🔹 Category Name Field
                           TextFormField(
                             controller: categoryController,
                             decoration: InputDecoration(
@@ -56,8 +64,40 @@ class CategoryCustom {
                             },
                           ),
                           const SizedBox(height: 20),
+                          // ^variation
 
-                          // 🔹 Description Field
+ DropdownButtonFormField<String>(
+                decoration: InputDecoration(
+                  labelText: "Variation Type",
+                  hintText: "Select Variation type",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 16,
+                  ),
+                ), 
+                initialValue: selectedVariation,
+                items: variationItems.map((String category) {
+                  return DropdownMenuItem<String>(
+                    value: category,
+                    child: Text(category),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                 
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please select a category";
+                  }
+                  return null;
+                },
+              ),
+           SizedBox(height: 20,), 
+
+                          // ^🔹 Description Field
                           TextFormField(
                             controller: descriptionController,
                             maxLines: 4,
@@ -82,7 +122,7 @@ class CategoryCustom {
                       ),
                     ),
                     actions: [
-                      // ✅ Add Button
+                      // ^✅ Add Button
                       TextButton(
                         onPressed: () async {
                           String categoryName = categoryController.text.trim();
@@ -134,7 +174,7 @@ class CategoryCustom {
                         child: const Text("Add"),
                       ),
 
-                      // Cancel Button
+                      // ^Cancel Button
                       TextButton(
                         onPressed: () {
                           Navigator.of(context).pop();
