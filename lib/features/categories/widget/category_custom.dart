@@ -159,7 +159,7 @@ class CategoryCustom {
     );
   }
 
-  // Category heading + search
+  //^ Category heading + search
   static Widget categoryHeading(
     TextEditingController controller,
     ValueChanged<String> onSearch,
@@ -237,7 +237,7 @@ class CategoryCustom {
        
           Expanded(
             child: Text(
-              "Description",
+              "Logo",
               style: TextStyle(color: AppColor.whiteColor),
             ),
           ),
