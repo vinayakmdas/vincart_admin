@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_admin/core/themes/app_color.dart';
 import 'package:ecommerce_admin/features/auth/presentaion/widget/navigator.dart';
+import 'package:ecommerce_admin/features/brand/provider/circular_provider.dart';
 import 'package:ecommerce_admin/features/brand/provider/logo_converting.dart';
 import 'package:ecommerce_admin/features/brand/service/cloudinary_service.dart';
 import 'package:file_picker/file_picker.dart';
@@ -11,6 +12,8 @@ class BrandCustome {
   // ^brand logo and brand name adding page
   static Widget brandadding(BuildContext context) {
     final TextEditingController brandcontrolling = TextEditingController();
+
+    final provider = Provider.of <CircularProvider>(context, listen:  false);
 
     return Padding(
       padding: const EdgeInsets.only(right: 40, top: 20),
@@ -144,56 +147,79 @@ class BrandCustome {
                         ),
                       ),
                       const SizedBox(width: 20),
-                      TextButton(
-                        onPressed: () async {
-                          final logoProvider = Provider.of<LogoProvider>(
-                            context,
-                            listen: false,
-                          );
+                     Consumer<CircularProvider>(
+  builder: (context, loading, child) {
+    return TextButton(
+      onPressed: loading.isloading
+          ? null // disable while loading
+          : () async {
+              final logoProvider = Provider.of<LogoProvider>(
+                context,
+                listen: false,
+              );
 
-                          if (logoProvider.imagebytes == null) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text("Please select a brand logo."),
-                              ),
-                            );
-                            return;
-                          }
+              if (logoProvider.imagebytes == null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("Please select a brand logo."),
+                  ),
+                );
+                return;
+              }
 
-                          final cloudinaryService = CloudinaryService();
-                          final imageUrl = await cloudinaryService.uploadImage(
-                            logoProvider.imagebytes!,
-                          );
+              try {
+                // Start loading indicator
+                loading.startloading();
 
-                          if (imageUrl != null) {
-                            String brandname = brandcontrolling.text.trim();
-                            await addBrandToFirestore(
-                                imageurl: imageUrl, brandName: brandname);
-                            logoProvider.clearImage();
-                            brandcontrolling.clear();
+                final cloudinaryService = CloudinaryService();
+                final imageUrl = await cloudinaryService.uploadImage(
+                  logoProvider.imagebytes!,
+                );
 
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content:
-                                    Text("✅ Image uploaded successfully!"),
-                              ),
-                            );
-                            navigatePop(context);
-                            print('🌐 Cloudinary Image URL: $imageUrl');
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content:
-                                    Text("❌ Upload failed, please try again"),
-                              ),
-                            );
-                          }
-                        },
-                        child: Text(
-                          "Submit",
-                          style: TextStyle(color: AppColor.whiteColor),
-                        ),
-                      ),
+                if (imageUrl != null) {
+                  String brandname = brandcontrolling.text.trim();
+                  await addBrandToFirestore(
+                      imageurl: imageUrl, brandName: brandname);
+
+                  logoProvider.clearImage();
+                  brandcontrolling.clear();
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("✅ Image uploaded successfully!"),
+                    ),
+                  );
+
+                  navigatePop(context);
+                  print('🌐 Cloudinary Image URL: $imageUrl');
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("❌ Upload failed, please try again"),
+                    ),
+                  );
+                }
+              } finally {
+                
+                loading.stoploading();
+              }
+            },
+      child: loading.isloading
+          ? const SizedBox(
+              width: 22,
+              height: 22,
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                color: Colors.white,
+              ),
+            )
+          : Text(
+              "Submit",
+              style: TextStyle(color: AppColor.whiteColor),
+            ),
+    );
+  },
+),
                     ],
                   );
                 },
