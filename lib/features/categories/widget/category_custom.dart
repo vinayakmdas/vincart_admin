@@ -12,13 +12,10 @@ class CategoryCustom {
     // ✅ Keep controllers OUTSIDE of the dialog button
     TextEditingController categoryController = TextEditingController();
     TextEditingController descriptionController = TextEditingController();
-             String? selectedVariation;
+       
 
-             List<String>variationItems=[ 'No Color & No Size',
-    'Text Size + Color',
-    'Number Size + Color',
-    'Color Only',
-    'Custom'];
+List<String> selectedAttributeIds = [];
+   
     return Padding(
       padding: const EdgeInsets.only(right: 40, top: 20),
       child: Row(
@@ -64,40 +61,10 @@ class CategoryCustom {
                             },
                           ),
                           const SizedBox(height: 20),
-                          // ^variation
 
- DropdownButtonFormField<String>(
-                decoration: InputDecoration(
-                  labelText: "Variation Type",
-                  hintText: "Select Variation type",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 16,
-                  ),
-                ), 
-                initialValue: selectedVariation,
-                items: variationItems.map((String category) {
-                  return DropdownMenuItem<String>(
-                    value: category,
-                    child: Text(category),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                 
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please select a category";
-                  }
-                  return null;
-                },
-              ),
-           SizedBox(height: 20,), 
 
                           // ^🔹 Description Field
+                     
                           TextFormField(
                             controller: descriptionController,
                             maxLines: 4,
@@ -118,6 +85,62 @@ class CategoryCustom {
                               return null;
                             },
                           ),
+                          // ^variation
+SizedBox(height: 25,),
+ // 🔹 Attribute Selection Section
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Select Attributes:",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+
+                          FutureBuilder<QuerySnapshot>(
+                            future: FirebaseFirestore.instance
+                                .collection('attributes')
+                                .get(),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              }
+                              if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                                return const Text("No attributes found.");
+                              }
+
+                              final attributes = snapshot.data!.docs;
+
+                              return Column(
+                                children: attributes.map((doc) {
+                                  final attrId = doc.id;
+                                  final attrName = doc['name'] ?? 'Unnamed';
+
+                                  return CheckboxListTile(
+                                    title: Text(attrName),
+                                    value: selectedAttributeIds.contains(attrId),
+                                    onChanged: (bool? value) {
+                                      if (value == true) {
+                                        selectedAttributeIds.add(attrId);
+                                      } else {
+                                        selectedAttributeIds.remove(attrId);
+                                      }
+                                      // force rebuild
+                                      (context as Element).markNeedsBuild();
+                                    },
+                                  );
+                                }).toList(),
+                              );
+                            },
+                          ),
+           
+
+                          
                         ],
                       ),
                     ),
@@ -144,7 +167,8 @@ class CategoryCustom {
 
                             await firestore.collection('category').add({
                               'category': categoryName,
-                              'description': description, // ✅ Correct key
+                                  'description': description, // ✅ Correct key
+                                   'requiredAttributeIds': selectedAttributeIds,
                               'status': 'active',
                               'createdAt': DateTime.now().toIso8601String(),
                             });
