@@ -300,16 +300,10 @@ SizedBox(height: 25,),
           ),
        
           Expanded(
-            child: Text(
-              "Logo",
-              style: TextStyle(color: AppColor.whiteColor),
-            ),
-          ),
-          Expanded(
             child: Text("Status", style: TextStyle(color: AppColor.whiteColor)),
           ),
           Expanded(
-            child: Text(
+            child: Text( 
               "Created At",
               style: TextStyle(color: AppColor.whiteColor),
             ), 
@@ -355,9 +349,7 @@ SizedBox(height: 25,),
           Expanded(
             child: Text(category['category'] ?? '',style: TextStyle(color: AppColor.whiteColor),),
           ),
-          Expanded(
-            child: Text(category['description'] ?? '',style: TextStyle(color: AppColor.whiteColor),),
-          ),
+          
           Expanded(
             child: Text(category['status'] ?? '',style: TextStyle(color: AppColor.whiteColor),),
           ),
