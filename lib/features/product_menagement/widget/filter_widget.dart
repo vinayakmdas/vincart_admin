@@ -1,5 +1,7 @@
 import 'package:ecommerce_admin/core/themes/app_color.dart';
+import 'package:ecommerce_admin/features/product_menagement/provider/product_management_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductFilterTabs extends StatefulWidget {
   const ProductFilterTabs({super.key});
@@ -27,8 +29,20 @@ class _ProductFilterTabsState extends State<ProductFilterTabs> {
         ],
         onPressed: (index) {
           setState(() => selectedIndex = index);
+  
 
-          // TODO: filter products here
+   final provider =Provider.of<ProductProvider>(context, listen :false);
+
+     if(index==0){
+      provider.setFilter("active");
+
+     }else if (index == 1){
+      provider.setFilter("inactive");
+
+     }
+     else{
+      provider.setFilter("total");
+     }
           
         },
         borderRadius: BorderRadius.circular(8),
@@ -42,9 +56,9 @@ class _ProductFilterTabsState extends State<ProductFilterTabs> {
           minWidth: 120,
         ),
         children: const [
-          Text("All Products"),
           Text("Active"),
           Text("Inactive"),
+           Text("All Products"),
         ],
       ),
     );
