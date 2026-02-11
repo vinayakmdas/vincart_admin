@@ -6,6 +6,7 @@ import 'package:ecommerce_admin/features/dashboard/screens/dashbord_screen.dart'
 import 'package:ecommerce_admin/features/homescreen/model/drawer_Model.dart';
 import 'package:ecommerce_admin/features/homescreen/provider/sideMen_provider.dart';
 import 'package:ecommerce_admin/features/order/screens/Oreder_screens.dart';
+import 'package:ecommerce_admin/features/product_menagement/screen/product_management.dart';
 import 'package:ecommerce_admin/features/seller_management/screens/seller_management.dart';
 import 'package:ecommerce_admin/features/user_management/screens/userManagement.dart';
 import 'package:flutter/material.dart';
@@ -33,9 +34,10 @@ class HomeScreen extends StatelessWidget {
         return OrederScreens();
       case 5:
         return CategoryScreen();
-          
-          case 6 :
+      case 6 :
           return  BrandScreen();
+      case 7 :
+      return ProductManagement();
 
       default:
         return Center(
@@ -62,6 +64,7 @@ class HomeScreen extends StatelessWidget {
       SideMenuItems(title: "Order", icon: Icons.shopping_cart, pageTitle: "Order Details"),
       SideMenuItems(title: "Categories", icon: Icons.category_outlined, pageTitle: "Categories"),
        SideMenuItems(title: "Brand", icon: Icons.bakery_dining_rounded, pageTitle: "Brand Details"),
+     SideMenuItems(title: "Product Management", icon: Icons.production_quantity_limits, pageTitle: "Product Management"),
     ];
 
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();

@@ -15,5 +15,7 @@ class AppColor {
   static const blackColor = Colors.black;
   //  static final secondoryColor = Color(0xFF101636);
 
- 
+ static const productBaground =  Color(0xFF101722);
+ static const containerBaground = Color(0xFF0B1739);
+
 }
