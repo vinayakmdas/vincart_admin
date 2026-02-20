@@ -17,5 +17,16 @@ class AppColor {
 
  static const productBaground =  Color(0xFF101722);
  static const containerBaground = Color(0xFF0B1739);
+ static const Color headerbaground = Color(0xFF0D1731);
+//  buttonbaground color  green
+static const greencolor =  Color(0xFF0B2740);
+static const bordercolorGreen = Color(0xFF0B3A48);
+static const greenText =Color(0xFF10B981);
+
+// button color red
+
+static const redcolor  =  Color(0xFF211B3A);
+static const bordercolorRed = Color(0xFF4A233C);
+static const rednText =Color(0xFFEF4444);
 
 }
