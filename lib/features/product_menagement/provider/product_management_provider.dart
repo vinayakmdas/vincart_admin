@@ -2,7 +2,7 @@
   import 'package:flutter/material.dart';
 
   class ProductProvider extends ChangeNotifier {
-    String selectedFilter = "total";
+    String selectedFilter = "active";
 
     void setFilter(String filter) {
       selectedFilter = filter;
