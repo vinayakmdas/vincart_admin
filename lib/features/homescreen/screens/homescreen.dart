@@ -1,7 +1,7 @@
 import 'package:ecommerce_admin/core/themes/app_color.dart';
 import 'package:ecommerce_admin/features/brand/screen/brand_screen.dart';
 import 'package:ecommerce_admin/features/categories/screens/category_screen.dart';
-import 'package:ecommerce_admin/features/customer_service/screen/customer_screen.dart';
+import 'package:ecommerce_admin/features/customer_service/screen/chat_layout_screen.dart';
 import 'package:ecommerce_admin/features/dashboard/screens/dashbord_screen.dart';
 import 'package:ecommerce_admin/features/homescreen/model/drawer_Model.dart';
 import 'package:ecommerce_admin/features/homescreen/provider/sideMen_provider.dart';
@@ -29,8 +29,8 @@ class HomeScreen extends StatelessWidget {
       case 2:
         return SellerManagement();
       case 3:
-        return CustomerScreen();
-      case 4:
+        return ChatLayoutScreen();
+      case 4: 
         return OrederScreens();
       case 5:
         return CategoryScreen();
@@ -60,7 +60,7 @@ class HomeScreen extends StatelessWidget {
       SideMenuItems(title: "Dashboard", icon: Icons.dashboard, pageTitle: "Dashboard Overview"),
       SideMenuItems(title: "User Management", icon: Icons.supervised_user_circle_outlined, pageTitle: "User Management"),
       SideMenuItems(title: "Seller Management", icon: Icons.add_business_sharp, pageTitle: "Seller Management"),
-      SideMenuItems(title: "Customer Service", icon: Icons.headset_mic_outlined, pageTitle: "Customer Service"),
+      SideMenuItems(title: "Chat", icon: Icons.headset_mic_outlined, pageTitle: "Chat"),
       SideMenuItems(title: "Order", icon: Icons.shopping_cart, pageTitle: "Order Details"),
       SideMenuItems(title: "Categories", icon: Icons.category_outlined, pageTitle: "Categories"),
        SideMenuItems(title: "Brand", icon: Icons.bakery_dining_rounded, pageTitle: "Brand Details"),

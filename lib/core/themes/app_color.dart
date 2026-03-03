@@ -29,4 +29,7 @@ static const redcolor  =  Color(0xFF211B3A);
 static const bordercolorRed = Color(0xFF4A233C);
 static const rednText =Color(0xFFEF4444);
 
+//  chat screen 
+static const listsubheading = Color(0xFF8392A7);
+static const chatbagroundColor = Color(0xFF09122D);
 }
