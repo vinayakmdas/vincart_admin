@@ -99,10 +99,10 @@ print("this is chatid $chatId");
             Expanded(
               child: TextField(
                 textInputAction: TextInputAction.send ,
-                onSubmitted: (value) async {   // 👈 triggers when Enter is pressed
+                onSubmitted: (value) async {   
       if (value.trim().isEmpty) return;
 
-      await sendMessage();   // call reusable function
+      await sendMessage();  
     },
                 controller: controller,style: TextStyle(color: AppColor.greyColor ),
                 decoration: InputDecoration(
