@@ -98,6 +98,12 @@ print("this is chatid $chatId");
           children: [
             Expanded(
               child: TextField(
+                textInputAction: TextInputAction.send ,
+                onSubmitted: (value) async {   // 👈 triggers when Enter is pressed
+      if (value.trim().isEmpty) return;
+
+      await sendMessage();   // call reusable function
+    },
                 controller: controller,style: TextStyle(color: AppColor.greyColor ),
                 decoration: InputDecoration(
                   hintText: "Type message...",
@@ -168,4 +174,34 @@ print("this is chatid $chatId");
   ),
 );
   }
+  
+  Future<void> sendMessage() async {
+  final adminUid = FirebaseAuth.instance.currentUser!.uid;
+  final chatId =
+      ChatscreenWidget.generateChatId(adminUid, widget.sellerUid);
+
+  if (controller.text.trim().isEmpty) return;
+
+  await FirebaseFirestore.instance
+      .collection('chat_rooms')
+      .doc(chatId)
+      .set({
+        'adminId': adminUid,
+        'sellerId': widget.sellerUid,
+        'lastMessage': controller.text,
+        'lastMessageTime': FieldValue.serverTimestamp(),
+      }, SetOptions(merge: true));
+
+  await FirebaseFirestore.instance
+      .collection('chat_rooms')
+      .doc(chatId)
+      .collection('messages')
+      .add({
+        'senderId': adminUid,
+        'text': controller.text,
+        'createdAt': FieldValue.serverTimestamp()
+      });
+
+  controller.clear();
+}
 }
