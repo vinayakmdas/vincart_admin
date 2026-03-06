@@ -5,6 +5,7 @@ import 'package:ecommerce_admin/features/brand/provider/circular_provider.dart';
 import 'package:ecommerce_admin/features/brand/provider/logo_converting.dart';
 import 'package:ecommerce_admin/features/categories/provider/variation_provider.dart';
 import 'package:ecommerce_admin/features/homescreen/provider/sideMen_provider.dart';
+import 'package:ecommerce_admin/features/order/provider/order_provider.dart';
 import 'package:ecommerce_admin/features/product_menagement/provider/product_management_provider.dart';
 import 'package:ecommerce_admin/features/seller_management/provider/seller_provider.dart';
 // import 'package:ecommerce_admin/features/seller_management/provider/seller_provider.dart';
@@ -33,7 +34,8 @@ try {
        ChangeNotifierProvider(create: (_) => LogoProvider()),
          ChangeNotifierProvider(create: (_) => CircularProvider()),
           ChangeNotifierProvider(create: (_) => VariationProvider()),
-            ChangeNotifierProvider(create: (_) => ProductProvider())
+            ChangeNotifierProvider(create: (_) => ProductProvider()),
+            ChangeNotifierProvider(create: (_) => OrderProvider())
       ],
       child: const MyApp(),
     ),

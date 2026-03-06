@@ -12,7 +12,7 @@ class CloudinaryService {
         "https://api.cloudinary.com/v1_1/$cloudName/image/upload",
       );
 
-      var reqest = await http.MultipartRequest('post', url);
+      var reqest = http.MultipartRequest('post', url);
 
       reqest.fields['upload_preset'] = uploadPreset;
 

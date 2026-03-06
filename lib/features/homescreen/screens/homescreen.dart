@@ -67,10 +67,10 @@ class HomeScreen extends StatelessWidget {
      SideMenuItems(title: "Product Management", icon: Icons.production_quantity_limits, pageTitle: "Product Management"),
     ];
 
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
     return Scaffold(
-      key: _scaffoldKey,
+      key: scaffoldKey,
       appBar: AppBar(
   title: Text(
     menuItems[sideMenu.selectedIndex].pageTitle,
