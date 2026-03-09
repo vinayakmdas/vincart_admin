@@ -10,6 +10,7 @@ import 'package:ecommerce_admin/features/product_menagement/provider/product_man
 import 'package:ecommerce_admin/features/seller_management/provider/seller_provider.dart';
 // import 'package:ecommerce_admin/features/seller_management/provider/seller_provider.dart';
 import 'package:ecommerce_admin/features/splash/splashscreen.dart';
+import 'package:ecommerce_admin/features/user_management/provider/user_provider.dart';
 import 'package:ecommerce_admin/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,8 @@ try {
          ChangeNotifierProvider(create: (_) => CircularProvider()),
           ChangeNotifierProvider(create: (_) => VariationProvider()),
             ChangeNotifierProvider(create: (_) => ProductProvider()),
-            ChangeNotifierProvider(create: (_) => OrderProvider())
+            ChangeNotifierProvider(create: (_) => OrderProvider()),
+            ChangeNotifierProvider(create: (_) => UserProvider())
       ],
       child: const MyApp(),
     ),

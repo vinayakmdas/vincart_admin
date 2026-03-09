@@ -12,8 +12,6 @@ import 'package:ecommerce_admin/features/user_management/screens/userManagement.
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:flutter/foundation.dart' show kIsWeb;
-// import 'dart:developer' as developer;
 
 
 
@@ -25,7 +23,7 @@ class HomeScreen extends StatelessWidget {
       case 0:
         return DashbordScreen();
       case 1:
-        return Usermanagement();
+        return UserManagement();
       case 2:
         return SellerManagement();
       case 3:
