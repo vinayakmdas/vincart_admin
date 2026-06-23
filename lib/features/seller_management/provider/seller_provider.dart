@@ -62,4 +62,31 @@ class SellerProvider extends ChangeNotifier {
         return const Stream<int>.empty();
     }
   }
+
+  // Counts new sellers per weekday (Mon..Sun) for the current week
+  Stream<List<int>> getWeeklySignupStream() {
+    final sellers = FirebaseFirestore.instance.collection("sellers");
+    final now = DateTime.now();
+    final startOfWeek = DateTime(now.year, now.month, now.day)
+        .subtract(Duration(days: now.weekday - 1)); // Monday 00:00
+    final endOfWeek = startOfWeek.add(const Duration(days: 7));
+
+    return sellers
+        .where("createdAt",
+            isGreaterThanOrEqualTo: Timestamp.fromDate(startOfWeek))
+        .where("createdAt", isLessThan: Timestamp.fromDate(endOfWeek))
+        .snapshots()
+        .map((snapshot) {
+      final counts = List<int>.filled(7, 0);
+      for (final doc in snapshot.docs) {
+        final data = doc.data();
+        final ts = data["createdAt"] as Timestamp?;
+        if (ts != null) {
+          final weekday = ts.toDate().weekday; // 1 = Mon ... 7 = Sun
+          counts[weekday - 1]++;
+        }
+      }
+      return counts;
+    });
+  }
 }

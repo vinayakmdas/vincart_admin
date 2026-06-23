@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+
 class SellerModel {
   final String id;
   final String sellerName;
   final String email;
   final String phone;
   final String status;
+  final DateTime createdAt;
 
   SellerModel({
     required this.id,
@@ -13,6 +15,7 @@ class SellerModel {
     required this.email,
     required this.phone,
     required this.status,
+    required this.createdAt,
   });
 
   factory SellerModel.fromFirestore(DocumentSnapshot doc) {
@@ -23,6 +26,8 @@ class SellerModel {
       email: data["email"] ?? "",
       phone: data["phone"] ?? "",
       status: data["status"] ?? "",
+      createdAt:
+          (data["createdAt"] as Timestamp?)?.toDate() ?? DateTime.now(),
     );
   }
 }

@@ -32,4 +32,6 @@ static const rednText =Color(0xFFEF4444);
 //  chat screen 
 static const listsubheading = Color(0xFF8392A7);
 static const chatbagroundColor = Color(0xFF09122D);
+static const cardbagroundcolor  =Color(0xFF1D1F23);
+static const dashboarbagroundcolor = Color(0xFF111317);
 }

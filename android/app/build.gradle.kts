@@ -24,7 +24,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.ecommerce_admin"
-        minSdk = 21 // ✅ Use a valid integer SDK version (NOT NDK version)
+        minSdk = flutter.minSdkVersion // ✅ Use a valid integer SDK version (NOT NDK version)
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName

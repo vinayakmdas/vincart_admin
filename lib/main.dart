@@ -1,9 +1,12 @@
 
 
 import 'dart:developer';
+import 'package:ecommerce_admin/features/brand/provider/brand_provider.dart';
 import 'package:ecommerce_admin/features/brand/provider/circular_provider.dart';
 import 'package:ecommerce_admin/features/brand/provider/logo_converting.dart';
+import 'package:ecommerce_admin/features/categories/provider/category_provider.dart';
 import 'package:ecommerce_admin/features/categories/provider/variation_provider.dart';
+import 'package:ecommerce_admin/features/dashboard/provider/dashboard_provider.dart';
 import 'package:ecommerce_admin/features/homescreen/provider/sideMen_provider.dart';
 import 'package:ecommerce_admin/features/order/provider/order_provider.dart';
 import 'package:ecommerce_admin/features/product_menagement/provider/product_management_provider.dart';
@@ -31,13 +34,16 @@ try {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => DrawerProvider()),
+        ChangeNotifierProvider(create: (_) => BrandProvider()),
         ChangeNotifierProvider(create: (_)=>SellerProvider()),
        ChangeNotifierProvider(create: (_) => LogoProvider()),
          ChangeNotifierProvider(create: (_) => CircularProvider()),
           ChangeNotifierProvider(create: (_) => VariationProvider()),
             ChangeNotifierProvider(create: (_) => ProductProvider()),
+            ChangeNotifierProvider(create: (_) => CategoryProvider()),
             ChangeNotifierProvider(create: (_) => OrderProvider()),
-            ChangeNotifierProvider(create: (_) => UserProvider())
+            ChangeNotifierProvider(create: (_) => UserProvider()),
+           ChangeNotifierProvider(create: (_) => DashboardProvider())  
       ],
       child: const MyApp(),
     ),
